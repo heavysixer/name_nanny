@@ -1,0 +1,33 @@
+= NameNanny
+
+I needed functionality to encourage user’s to be on their best behavior when they choosing a username or filling out a form. Bad behavior can come in many forms but specifically, I wanted to prevent people from registering usernames like “administrator”, “root”, “abuse”,”support” etc. I also didn’t want people to pick names like “whore” or even “hoar”,”h0ar”,”wh0r3” (you get the picture). It occurred to me that others would like this functionality too, so I created the name_nanny plug-in which can be employed in a couple of ways.
+
+== Example usage
+
+In the model you can use:
+
+  validates_wholesomeness_of :login
+
+This will check the login against values in two text files in the plug-in directory “badwords.txt”, and “restrictedwords.txt”. By default a match returns an non-descript error like “this username is already taken”. I chose a generalized error to dissuade users from trying to hack around the filter and find a word i missed.
+
+If you are filtering the body of text you may want to allow words like “administrator” in the body of the document. Therefore namenanny has a second method called “bleeptext”, which you can use thusly:
+def before_save
+    %w(description, title, author, tags).each do |column| 
+      if self[column.to_sym]
+        self[column.to_sym] = bleep_text(self[column.to_sym])
+      end
+    end
+  end
+
+A sample output might look like this:
+
+p = Post.new
+p.description = "Step two: put your dick in a box."
+p.save
+puts p.description = "Step two: put your bleeep in a box."
+
+You can also replace the bleeptext method with a smurftext method, which produces an equally hilarious: “Step two: put your smurf in a box.”
+
+== Authors, credits, contact
+Authors::                Mark Daggett
+Original announcement::  http://locusfoc.us/2007/2/13/name-nanny-plugin

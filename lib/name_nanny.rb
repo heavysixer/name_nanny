@@ -1,7 +1,7 @@
 # The Name Nanny makes sure that users behave themselves when on the system.
 module NameNanny
-  RESERVED_NAMES = (IO.readlines RAILS_ROOT + '/vendor/plugins/name_nanny/lib/reserved_words.txt').each { |w| w.chop! }.freeze
-  BAD_WORDS      = (IO.readlines RAILS_ROOT + '/vendor/plugins/name_nanny/lib/bad_words.txt').each { |w| w.chop! }.freeze
+  RESERVED_NAMES = (IO.readlines RAILS_ROOT + '/vendor/plugins/name_nanny/lib/reserved_words.txt').each { |w| w.chop! }
+  BAD_WORDS      = (IO.readlines RAILS_ROOT + '/vendor/plugins/name_nanny/lib/bad_words.txt').each { |w| w.chop! }
   
   # Use a non-descript error to prevent the users from trying to hack around the filter.
   # Hopefully, they will just give up and choose something nicer.
